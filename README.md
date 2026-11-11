@@ -2,5 +2,21 @@
 
 Personal website of Benjamin Thelen — live at https://1bnjmn3.github.io
 
-## Future
-- Make each project card clickable, opening its own detail page (with interactive animations where it fits).
+## Done
+
+- Each project card opens its own detail page, with interactive animation where it fits.
+
+Project pages:
+
+- [Marvel Fusion](projects/marvel-fusion.html)
+- [Tesla Automation](projects/tesla-automation.html)
+- [Hardware-offloaded TCP pacing](projects/tcp-pacing.html)
+- [CERN / LPC ML Inference Hackathon](projects/cern-lpc-ml-hackathon.html)
+- [Quantum ML for Fusion Energy](projects/quantum-ml-fusion.html)
+- [Fujitsu Quantum Simulator Challenge](projects/fujitsu-quantum-simulator.html)
+- [Cosmic Ray Muon Flux](projects/cosmic-ray-muon-flux.html)
+- [UniBots](projects/unibots.html)
+- [European Rover Challenge](projects/european-rover-challenge.html)
+- [KCL Rocketry](projects/kcl-rocketry.html)
+- [Teaching robot arms](projects/teaching-robot-arms.html)
+- [Droppy Gate](projects/droppy-gate.html)
