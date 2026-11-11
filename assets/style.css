@@ -387,3 +387,210 @@ html.js .reveal:not(.in) { opacity: 0; transform: translateY(14px); }
   a.card:hover, a.card:focus-visible { transform: none; }
   .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- 3D pointer tilt ---------- */
+[data-tilt] {
+  --tilt-rx: 0deg;
+  --tilt-ry: 0deg;
+  --glare-x: 50%;
+  --glare-y: 50%;
+  --glare-o: 0;
+  position: relative;
+  transform: perspective(900px) rotateX(var(--tilt-rx)) rotateY(var(--tilt-ry));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--glare-x) var(--glare-y), rgba(255,255,255,0.22), transparent 58%);
+  opacity: var(--glare-o);
+  mix-blend-mode: soft-light;
+  z-index: 3;
+}
+a.card[data-tilt]:hover,
+a.card[data-tilt]:focus-visible {
+  transform: perspective(900px) rotateX(var(--tilt-rx)) rotateY(var(--tilt-ry)) translateZ(8px);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+.tilt-layer { transform: translateZ(18px); }
+
+/* ---------- 3D muon telescope ---------- */
+.detector .telescope-scene {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 18%;
+  height: 46%;
+  transform-style: preserve-3d;
+  transform: rotateX(64deg) rotateZ(-22deg);
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+.sc-plate {
+  position: absolute;
+  left: 12%;
+  width: 76%;
+  height: 18px;
+  top: 42%;
+  margin-top: -9px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(170,205,255,0.42), rgba(108,155,255,0.14));
+  border: 1px solid rgba(180,210,255,0.55);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 0 16px rgba(108,155,255,0.22);
+  backface-visibility: hidden;
+}
+.sc-plate[data-i="0"] { transform: translateZ(46px); }
+.sc-plate[data-i="1"] { transform: translateZ(0); }
+.sc-plate[data-i="2"] { transform: translateZ(-46px); }
+.sc-plate.on {
+  background: linear-gradient(180deg, rgba(200,225,255,0.85), rgba(108,155,255,0.45));
+  box-shadow: 0 0 28px rgba(108,155,255,0.85), 0 8px 18px rgba(0,0,0,0.3);
+  border-color: rgba(220,235,255,0.9);
+}
+.sc-plate .pmt {
+  position: absolute;
+  right: -46px;
+  top: 50%;
+  transform: translateY(-50%) rotateX(-58deg) rotateZ(18deg);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--panel-fg-2);
+  white-space: nowrap;
+}
+.muon-track {
+  position: absolute;
+  top: -40%;
+  width: 2px;
+  height: 170%;
+  margin-left: -1px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(200,220,255,0.15) 20%, rgba(220,235,255,0.95) 100%);
+  border-radius: 1px;
+  transform-origin: top center;
+  filter: drop-shadow(0 0 4px rgba(180,210,255,0.8));
+  pointer-events: none;
+}
+.muon-track.miss {
+  background: linear-gradient(to bottom, transparent 0%, rgba(139,149,173,0.15) 20%, rgba(139,149,173,0.55) 100%);
+  filter: none;
+  width: 1.5px;
+}
+.detector .hist-canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  height: 32%;
+  width: 100%;
+  display: block;
+}
+
+/* ---------- decoder lattice & plot ---------- */
+.decoder-viz, .decoder-plot {
+  border-radius: 16px;
+  background: var(--surface-2);
+  padding: 16px 16px 12px;
+  min-width: 0;
+}
+.decoder-viz svg, .decoder-plot svg { width: 100%; height: auto; display: block; }
+.decoder-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.decoder-tools button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.decoder-tools button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--accent);
+  border-color: transparent;
+}
+.decoder-tools button:hover { background: var(--accent-soft); }
+.decoder-tools button[aria-pressed="true"]:hover { background: var(--accent); filter: brightness(1.08); }
+.note {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 10px 0 0;
+  line-height: 1.45;
+  max-width: 42em;
+}
+table.data {
+  width: 100%;
+  max-width: 42em;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+table.data th, table.data td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+table.data th {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  font-weight: 500;
+}
+table.data td { color: var(--fg-2); }
+table.data td strong { color: var(--fg); }
+
+/* ---------- project prose & outbound links ---------- */
+.prose {
+  color: var(--fg-2);
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 38em;
+  margin: 16px 0 0;
+}
+.prose strong { color: var(--fg); font-weight: 600; }
+.card-blurb {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg-2);
+  margin: 0;
+}
+.out-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.out-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+.out-links a:hover { background: var(--accent-soft); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt],
+  a.card[data-tilt]:hover,
+  a.card[data-tilt]:focus-visible {
+    transform: none !important;
+    will-change: auto;
+  }
+  [data-tilt]::after { display: none; }
+}

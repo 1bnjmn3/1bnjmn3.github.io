@@ -164,3 +164,58 @@
   document.addEventListener('visibilitychange', () => { document.hidden ? stopAnim() : (visible && startAnim()); });
   startAnim();
 })();
+
+  /* ---------- 3D pointer tilt (shared) ---------- */
+  (function bindTilt() {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = [...document.querySelectorAll('[data-tilt]')];
+    if (!els.length) return;
+    if (reduce) {
+      els.forEach(el => {
+        el.style.setProperty('--tilt-rx', '0deg');
+        el.style.setProperty('--tilt-ry', '0deg');
+        el.style.setProperty('--glare-o', '0');
+      });
+      return;
+    }
+
+    const state = new Map();
+    els.forEach(el => state.set(el, { tx: 0, ty: 0, cx: 0, cy: 0, gx: 0.5, gy: 0.5, go: 0, inside: false }));
+
+    function point(e, el) {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+      const y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+      const s = state.get(el);
+      s.tx = x * 2 - 1;
+      s.ty = y * 2 - 1;
+      s.gx = x;
+      s.gy = y;
+      s.inside = true;
+    }
+
+    els.forEach(el => {
+      el.addEventListener('pointermove', e => point(e, el));
+      el.addEventListener('pointerenter', e => point(e, el));
+      el.addEventListener('pointerleave', () => { state.get(el).inside = false; });
+    });
+
+    function tick() {
+      els.forEach(el => {
+        const s = state.get(el);
+        const max = Number(el.getAttribute('data-tilt-max') || 9);
+        if (!s.inside) { s.tx = 0; s.ty = 0; }
+        s.cx += (s.tx - s.cx) * 0.14;
+        s.cy += (s.ty - s.cy) * 0.14;
+        s.go += ((s.inside ? 1 : 0) - s.go) * 0.16;
+        el.style.setProperty('--tilt-rx', (-s.cy * max).toFixed(3) + 'deg');
+        el.style.setProperty('--tilt-ry', (s.cx * max).toFixed(3) + 'deg');
+        el.style.setProperty('--glare-x', (s.gx * 100).toFixed(2) + '%');
+        el.style.setProperty('--glare-y', (s.gy * 100).toFixed(2) + '%');
+        el.style.setProperty('--glare-o', s.go.toFixed(3));
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();

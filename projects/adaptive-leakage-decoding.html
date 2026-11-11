@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Leakage-aware surface-code decoder · Benjamin Thelen">
+<meta property="og:description" content="Adaptive versus static surface-code decoding under heralded leakage, with audited results from a public Stim benchmark.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307090e'/%3E%3Cpath d='M7 10h18M7 16h18M7 22h18' stroke='%236c9bff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M20 4 13 28' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E">
+<title>Leakage-aware surface-code decoder · Benjamin Thelen</title>
+<meta name="description" content="Adaptive versus static surface-code decoding under heralded leakage, with audited results from a public Stim benchmark.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-project" data-nav="research">
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Benjamin Thelen</a>
+    <ul>
+      <li><a href="../index.html#work">Industry</a></li>
+      <li><a href="../index.html#research">Research</a></li>
+      <li class="opt"><a href="../index.html#teams">Teams</a></li>
+      <li class="opt"><a href="../index.html#leadership">Leadership</a></li>
+      <li class="opt"><a href="../index.html#education">Education</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <article class="project">
+    <div class="wrap">
+      <a class="back" href="../index.html#research">Research</a>
+      <div class="project-head">
+        <div class="meta"><span class="when">2026</span><span class="badge">Public repo</span></div>
+        <h1>Leakage-aware surface-code decoder</h1>
+        <p class="role">Independent research · heralded erasure on a rotated surface code</p>
+      </div>
+      <div class="project-body">
+        <ul>
+          <li>A simulation study of what happens if a surface-code decoder is told <strong>where a qubit leaked</strong>.</li>
+          <li>Leakage is modelled as <strong>heralded erasure</strong> (Stim's <code>HERALDED_ERASE</code>): a simplified stand-in for leakage, not leakage itself. Real leakage persists, spreads, and is heralded late. None of that is modelled here.</li>
+          <li>Two decoders see the same shots: <strong>static</strong> PyMatching, which ignores the herald flags, and <strong>adaptive</strong> PyMatching, which uses them shot by shot.</li>
+        </ul>
+      </div>
+      <div class="results">
+        <div class="stat" data-tilt data-tilt-max="6"><div class="n">16.0×</div><div class="l">lower logical error rate per round at d = 7, p_L = 2×10⁻² (adaptive vs static)</div></div>
+        <div class="stat" data-tilt data-tilt-max="6"><div class="n">4.78×</div><div class="l">extrapolated qubit saving at that rate, for a 10⁻⁶ window target</div></div>
+        <div class="stat" data-tilt data-tilt-max="6"><div class="n">1.23×</div><div class="l">same target, when p_L equals the Pauli rate 2×10⁻³</div></div>
+      </div>
+      <div class="project-visual" data-tilt data-tilt-max="8">
+        <div class="decoder-viz" id="decoder-viz">
+          <div class="decoder-tools" data-decoder-tools>
+            <button type="button" data-mode-btn="static">Static matching</button>
+            <button type="button" data-mode-btn="adaptive" aria-pressed="true">Adaptive matching</button>
+          </div>
+        </div>
+        <p class="note">Illustrative lattice: a heralded erasure is flagged on one qubit. Adaptive matching uses the herald; static matching ignores it. This is not a simulated shot, and it does not model leakage spreading — the study uses instantaneous heralded erasure.</p>
+      </div>
+      <div class="project-visual">
+        <div class="decoder-plot" id="decoder-plot" data-tilt data-tilt-max="6"></div>
+        <p class="note">Logical error rate per round at d = 7, from <code>results/ler_sweep.csv</code>, as published in the repo README. Solid: static PyMatching. Dashed: adaptive. 600,000 shots per point; circuit noise p = 2×10⁻³.</p>
+      </div>
+      <table class="data">
+        <caption class="note" style="caption-side:bottom; text-align:left; margin-top:8px;">Logical error rate per round at d = 7 (600,000 shots per point). Ratios are as published in the README (16.0 is rounded; the raw CSV ratio is 15.99).</caption>
+        <thead>
+          <tr><th>p_L</th><th>Static</th><th>Adaptive</th><th>Static / adaptive</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>4.38×10⁻⁵</td><td>4.38×10⁻⁵</td><td>1.0</td></tr>
+          <tr><td>1×10⁻³</td><td>5.10×10⁻⁵</td><td>3.79×10⁻⁵</td><td>1.3</td></tr>
+          <tr><td>5×10⁻³</td><td>1.59×10⁻⁴</td><td>5.50×10⁻⁵</td><td>2.9</td></tr>
+          <tr><td>1×10⁻²</td><td>4.45×10⁻⁴</td><td>6.81×10⁻⁵</td><td>6.5</td></tr>
+          <tr><td>2×10⁻²</td><td>1.70×10⁻³</td><td>1.06×10⁻⁴</td><td><strong>16.0</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="prose">Qubit-saving ratios are <strong>extrapolated</strong> from three-point fits (d = 3, 5 and 7), out to distances far beyond those simulated. They illustrate what the fitted suppression factors imply, and are not a measurement. At p_L = 2×10⁻² the 10⁻⁶ window-target ratio is 4.78× (4.74× when distances are rounded to the next odd integer). At p_L = 2×10⁻³, equal to the Pauli noise, that ratio is 1.23× (1.00× on odd-integer patches). The published range across the window-target column is 1.11×–4.78×.</p>
+      <p class="prose">A C++ union-find decoder with erasure support sits in the same repo and is timed against a 1&nbsp;µs-per-round budget. Those times are software times on a cloud CPU, not hardware latencies. The decoder is unweighted, decodes a whole block rather than streaming, and has not been written in RTL or run on an FPGA. On a CPU it does not meet a hard 1&nbsp;µs-per-round budget: the worst shot is already several microseconds per round from d = 5 up. Treat the C++ timings as order-of-magnitude and optimistic relative to a real-time hardware decoder.</p>
+      <p class="prose">This is a student project, built with AI assistance; I designed the experiments and can explain every result.</p>
+      <div class="out-links">
+        <a href="https://github.com/1bnjmn3/adaptive-leakage-decoding" target="_blank" rel="noopener">GitHub repo ↗</a>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Benjamin W. Thelen</span>
+    <span>London, UK</span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/decoder.js"></script>
+</body>
+</html>

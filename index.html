@@ -24,6 +24,7 @@
       <li><a href="#work">Industry</a></li>
       <li><a href="#research">Research</a></li>
       <li class="opt"><a href="#teams">Teams</a></li>
+      <li class="opt"><a href="#leadership">Leadership</a></li>
       <li class="opt"><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -35,7 +36,7 @@
     <div>
       <p class="eyebrow">Physics · King's College London</p>
       <h1><span>Benjamin Thelen.</span><br><span class="soft">Physics, built.</span></h1>
-      <p class="lede">Second-year physics student in London. I build the software, hardware and models around real experiments, from <strong>fusion diagnostics at Marvel Fusion</strong> to <strong>TCP pacing on 100&nbsp;Gbps science networks</strong>, quantum machine learning and competition robots.</p>
+      <p class="lede">Second-year physics student in London. I build the software, hardware and models around real experiments, from a <strong>leakage-aware surface-code decoder</strong> and <strong>fusion diagnostics at Marvel Fusion</strong> to <strong>TCP pacing on 100&nbsp;Gbps science networks</strong>, quantum machine learning and competition robots.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#work">See my work</a>
         <a class="btn btn-ghost" href="https://github.com/1bnjmn3" target="_blank" rel="noopener">GitHub ↗</a>
@@ -43,12 +44,17 @@
       </div>
     </div>
     <div>
-      <figure class="detector" aria-label="Animated simulation of a three-panel muon telescope">
-        <canvas id="muons"></canvas>
+      <figure class="detector" data-tilt data-tilt-max="14" aria-label="Animated 3D model of a three-panel muon telescope. The stack follows the pointer.">
+        <div class="telescope-scene">
+          <div class="sc-plate" data-i="0"><span class="pmt">PMT 1</span></div>
+          <div class="sc-plate" data-i="1"><span class="pmt">PMT 2</span></div>
+          <div class="sc-plate" data-i="2"><span class="pmt">PMT 3</span></div>
+        </div>
+        <canvas id="muons-hist" class="hist-canvas"></canvas>
         <div class="readout top"><span class="live">Muon telescope · sim</span><span>window <b>20 ns</b></span></div>
         <div class="readout bottom"><span>triple coincidences <b id="coinc">0</b></span><span>n ≈ <b>2</b></span></div>
       </figure>
-      <p class="fig-cap">A live re-creation of the cosmic-ray telescope I built in 2024–25. A muon that crosses all three scintillators counts as a triple coincidence, and the histogram of their zenith angles builds toward <code>I(θ) ∝ cos²θ</code>.</p>
+      <p class="fig-cap">A 3D model of the cosmic-ray telescope I built in 2024–25. The stack follows the pointer. A muon that crosses all three scintillators counts as a triple coincidence, and the histogram of their zenith angles builds toward <code>I(θ) ∝ cos²θ</code>.</p>
     </div>
   </div>
 </header>
@@ -68,7 +74,7 @@
     <div class="wrap">
       <h2>Industry. <span class="soft">From the factory floor to a fusion lab.</span></h2>
       <div class="grid">
-        <a class="card" href="projects/marvel-fusion.html" aria-labelledby="card-marvel-fusion">
+        <a class="card" data-tilt href="projects/marvel-fusion.html" aria-labelledby="card-marvel-fusion">
           <div class="meta"><span class="when">Jun – Aug 2026</span></div>
           <h3 id="card-marvel-fusion">Marvel Fusion</h3>
           <p class="role">Diagnostics Intern, Experiments Department · Munich</p>
@@ -79,7 +85,7 @@
           </ul>
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
-        <a class="card" href="projects/tesla-automation.html" aria-labelledby="card-tesla-automation">
+        <a class="card" data-tilt href="projects/tesla-automation.html" aria-labelledby="card-tesla-automation">
           <div class="meta"><span class="when">May – Jun 2023</span></div>
           <h3 id="card-tesla-automation">Tesla Automation</h3>
           <p class="role">Engineering Intern · Prüm, Germany</p>
@@ -98,7 +104,24 @@
     <div class="wrap">
       <h2>Research. <span class="soft">Networks, particle physics, fusion and quantum.</span></h2>
       <div class="grid">
-        <a class="card feature span-2" href="projects/tcp-pacing.html" aria-labelledby="card-tcp-pacing">
+        <a class="card feature span-2" data-tilt data-tilt-max="7" href="projects/adaptive-leakage-decoding.html" aria-labelledby="card-adaptive-leakage-decoding">
+          <div class="feature-body">
+            <div style="display:grid; gap:14px; min-width:0">
+              <div class="meta"><span class="when">2026</span><span class="badge">Public repo</span></div>
+              <h3 id="card-adaptive-leakage-decoding">Leakage-aware surface-code decoder</h3>
+              <p class="role">Independent research · heralded erasure on a rotated surface code</p>
+              <ul>
+                <li>At <strong>d = 7</strong> and heralded-erasure rate <strong>2×10⁻²</strong>, adaptive PyMatching's logical error rate per round is <strong>16.0× lower</strong> than static matching (1.70×10⁻³ vs 1.06×10⁻⁴, 600,000 shots).</li>
+                <li>Extrapolated qubit savings from fits at d = 3, 5 and 7 reach <strong>4.78×</strong> at that rate, and <strong>1.23×</strong> when the erasure rate equals the Pauli rate (2×10⁻³), for a 10⁻⁶ window target.</li>
+                <li>Heralded erasure is a <strong>simplified stand-in for leakage</strong>, not leakage itself.</li>
+              </ul>
+              <span class="card-open" aria-hidden="true">View details</span>
+            </div>
+            <div class="decoder-viz tilt-layer" id="decoder-viz" data-mode="auto" aria-hidden="true"></div>
+          </div>
+        </a>
+
+        <a class="card feature span-2" data-tilt data-tilt-max="7" href="projects/tcp-pacing.html" aria-labelledby="card-tcp-pacing">
           <div class="feature-body">
             <div style="display:grid; gap:14px; min-width:0">
               <div class="meta"><span class="when">Jan 2026 – now</span><span class="badge">Lead project</span></div>
@@ -142,7 +165,7 @@
           </div>
         </a>
 
-        <a class="card" href="projects/cern-lpc-ml-hackathon.html" aria-labelledby="card-cern-lpc-ml-hackathon">
+        <a class="card" data-tilt href="projects/cern-lpc-ml-hackathon.html" aria-labelledby="card-cern-lpc-ml-hackathon">
           <div class="meta"><span class="when">Feb 2026</span><span class="badge">Accepted &amp; integrated</span></div>
           <h3 id="card-cern-lpc-ml-hackathon">CERN / LPC ML Inference Hackathon</h3>
           <p class="role">Project Developer · CMS data production</p>
@@ -152,7 +175,7 @@
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
 
-        <a class="card" href="projects/quantum-ml-fusion.html" aria-labelledby="card-quantum-ml-fusion">
+        <a class="card" data-tilt href="projects/quantum-ml-fusion.html" aria-labelledby="card-quantum-ml-fusion">
           <div class="meta"><span class="when">Oct 2025 – now</span></div>
           <h3 id="card-quantum-ml-fusion">Quantum ML for Fusion Energy</h3>
           <p class="role">Independent Researcher &amp; Author · paper in draft</p>
@@ -164,7 +187,7 @@
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
 
-        <a class="card" href="projects/fujitsu-quantum-simulator.html" aria-labelledby="card-fujitsu-quantum-simulator">
+        <a class="card" data-tilt href="projects/fujitsu-quantum-simulator.html" aria-labelledby="card-fujitsu-quantum-simulator">
           <div class="meta"><span class="when">Jan 2026 – now</span></div>
           <h3 id="card-fujitsu-quantum-simulator">Fujitsu Quantum Simulator Challenge</h3>
           <p class="role">Team Lead · carbon capture on a 40-qubit simulator</p>
@@ -175,7 +198,7 @@
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
 
-        <a class="card" href="projects/cosmic-ray-muon-flux.html" aria-labelledby="card-cosmic-ray-muon-flux">
+        <a class="card" data-tilt href="projects/cosmic-ray-muon-flux.html" aria-labelledby="card-cosmic-ray-muon-flux">
           <div class="meta"><span class="when">2024 – 2025</span></div>
           <h3 id="card-cosmic-ray-muon-flux">Cosmic Ray Muon Flux</h3>
           <p class="role">Independent project · triple coincidence</p>
@@ -195,7 +218,7 @@
     <div class="wrap">
       <h2>Engineering teams. <span class="soft">Robots, rovers and rockets.</span></h2>
       <div class="grid three">
-        <a class="card" href="projects/unibots.html" aria-labelledby="card-unibots">
+        <a class="card" data-tilt href="projects/unibots.html" aria-labelledby="card-unibots">
           <div class="meta"><span class="when">Nov 2025 – Jun 2026</span><span class="badge">5th nationally</span></div>
           <h3 id="card-unibots">UniBots</h3>
           <p class="role">Vice Lead, Hardware &amp; Computer Vision</p>
@@ -204,7 +227,7 @@
           </ul>
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
-        <a class="card" href="projects/european-rover-challenge.html" aria-labelledby="card-european-rover-challenge">
+        <a class="card" data-tilt href="projects/european-rover-challenge.html" aria-labelledby="card-european-rover-challenge">
           <div class="meta"><span class="when">Sep 2025 – now</span></div>
           <h3 id="card-european-rover-challenge">European Rover Challenge</h3>
           <p class="role">Mechatronics Team Member</p>
@@ -213,7 +236,7 @@
           </ul>
           <span class="card-open" aria-hidden="true">View details</span>
         </a>
-        <a class="card" href="projects/kcl-rocketry.html" aria-labelledby="card-kcl-rocketry">
+        <a class="card" data-tilt href="projects/kcl-rocketry.html" aria-labelledby="card-kcl-rocketry">
           <div class="meta"><span class="when">Sep 2025 – Jun 2026</span><span class="badge">National qualifier</span></div>
           <h3 id="card-kcl-rocketry">KCL Rocketry</h3>
           <p class="role">Materials, Manufacturing &amp; Simulation</p>
@@ -226,21 +249,54 @@
     </div>
   </section>
 
+
+  <!-- LEADERSHIP -->
+  <section class="block" id="leadership">
+    <div class="wrap">
+      <h2>Leadership and societies.</h2>
+      <div class="grid three">
+        <article class="card" data-tilt>
+          <div class="meta"><span class="when">2026/27</span><span class="badge">Co-President</span></div>
+          <h3>KCL Quantum Mechanics Society</h3>
+          <p class="role">Co-President</p>
+          <p class="card-blurb">Co-president of the Quantum Mechanics Society at King's College London.</p>
+          <div class="out-links">
+            <a href="https://www.kclsu.org/groups/activities/join/group/quantummech_society/" target="_blank" rel="noopener">KCLSU ↗</a>
+          </div>
+        </article>
+        <article class="card" data-tilt>
+          <div class="meta"><span class="when">2026/27</span><span class="badge">Committee</span></div>
+          <h3>KCL Electronics Society</h3>
+          <p class="role">Events Lead</p>
+          <p class="card-blurb">Events Lead on the 2026/27 committee of KCL Electronics Society.</p>
+          <div class="out-links">
+            <a href="https://kclelectronics.co.uk/" target="_blank" rel="noopener">Website ↗</a>
+            <a href="https://www.kclsu.org/groups/activities/join/group/rie/" target="_blank" rel="noopener">KCLSU ↗</a>
+            <a href="https://www.instagram.com/kclelectronics/" target="_blank" rel="noopener">Instagram ↗</a>
+          </div>
+        </article>
+        <article class="card" data-tilt>
+          <div class="meta"><span class="when">2026/27</span><span class="badge">Team Leader</span></div>
+          <h3>KCL RedForge</h3>
+          <p class="role">Team Leader</p>
+          <p class="card-blurb">Team Leader of KCL RedForge, an undergrad engineering team. Last year the team entered the European Rover Challenge, got about 90% of the way, and missed qualifying on a drone power fault. This year it is running MachX, a UK rocketry competition. Separately, I am a Mechatronics Team Member on the ERC rover.</p>
+          <div class="out-links">
+            <a href="https://kcl-redforge.github.io/" target="_blank" rel="noopener">Website ↗</a>
+            <a href="https://github.com/kcl-RedForge" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="projects/european-rover-challenge.html">ERC role</a>
+            <a href="https://www.exo.events/mach-x" target="_blank" rel="noopener">MachX ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- SIDE -->
   <section class="block" id="side">
     <div class="wrap">
       <h2>On the side. <span class="soft">Things I build for myself and for others.</span></h2>
       <div class="grid">
-        <a class="card" href="projects/teaching-robot-arms.html" aria-labelledby="card-teaching-robot-arms">
-          <div class="meta"><span class="when">KCL Electronics Society</span></div>
-          <h3 id="card-teaching-robot-arms">Teaching robot arms</h3>
-          <p class="role">Wheatstone 101</p>
-          <ul>
-            <li>I've built robotic arms from <strong>3D-printed parts and cheap servos</strong>, driven by an ESP32, and I teach students at KCL to build their own.</li>
-          </ul>
-          <span class="card-open" aria-hidden="true">View details</span>
-        </a>
-        <a class="card" href="projects/droppy-gate.html" aria-labelledby="card-droppy-gate">
+        <a class="card" data-tilt href="projects/droppy-gate.html" aria-labelledby="card-droppy-gate">
           <div class="meta"><span class="when">Personal</span></div>
           <h3 id="card-droppy-gate">Droppy Gate</h3>
           <p class="role">A local router for my own fleet of AI agents</p>
@@ -327,5 +383,6 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/muons.js"></script>
+<script src="assets/decoder.js"></script>
 </body>
 </html>

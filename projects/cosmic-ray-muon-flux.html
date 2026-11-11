@@ -24,6 +24,7 @@
       <li><a href="../index.html#work">Industry</a></li>
       <li><a href="../index.html#research">Research</a></li>
       <li class="opt"><a href="../index.html#teams">Teams</a></li>
+      <li class="opt"><a href="../index.html#leadership">Leadership</a></li>
       <li class="opt"><a href="../index.html#education">Education</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
@@ -47,17 +48,22 @@
         </ul>
       </div>
             <div class="results">
-              <div class="stat"><div class="n">20 ns</div><div class="l">coincidence window</div></div>
-              <div class="stat"><div class="n">n ≈ 2</div><div class="l">fitted zenith dependence</div></div>
+              <div class="stat" data-tilt data-tilt-max="6"><div class="n">20 ns</div><div class="l">coincidence window</div></div>
+              <div class="stat" data-tilt data-tilt-max="6"><div class="n">n ≈ 2</div><div class="l">fitted zenith dependence</div></div>
             </div>
-            <div class="project-visual">
+            <div class="project-visual" data-tilt data-tilt-max="8">
 
-            <figure class="detector" aria-label="Animated simulation of a three-panel muon telescope">
-              <canvas id="muons"></canvas>
+            <figure class="detector" data-tilt data-tilt-max="14" aria-label="Animated 3D model of a three-panel muon telescope. The stack follows the pointer.">
+              <div class="telescope-scene">
+                <div class="sc-plate" data-i="0"><span class="pmt">PMT 1</span></div>
+                <div class="sc-plate" data-i="1"><span class="pmt">PMT 2</span></div>
+                <div class="sc-plate" data-i="2"><span class="pmt">PMT 3</span></div>
+              </div>
+              <canvas id="muons-hist" class="hist-canvas"></canvas>
               <div class="readout top"><span class="live">Muon telescope · sim</span><span>window <b>20 ns</b></span></div>
               <div class="readout bottom"><span>triple coincidences <b id="coinc">0</b></span><span>n ≈ <b>2</b></span></div>
             </figure>
-            <p class="fig-cap">A live re-creation of the cosmic-ray telescope I built in 2024–25. A muon that crosses all three scintillators counts as a triple coincidence, and the histogram of their zenith angles builds toward <code>I(θ) ∝ cos²θ</code>.</p>
+            <p class="fig-cap">A 3D model of the cosmic-ray telescope I built in 2024–25. The stack follows the pointer. A muon that crosses all three scintillators counts as a triple coincidence, and the histogram of their zenith angles builds toward <code>I(θ) ∝ cos²θ</code>.</p>
 
             </div>
     </div>
